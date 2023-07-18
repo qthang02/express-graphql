@@ -1,10 +1,19 @@
+const {books, authors} = require('../data/static');
+
 const resolver = {
     Query: {
-        books: () => [
-                {id: 1, name: 'Name of the Wind', genre: 'Fantasy'},
-                {id: 2, name: 'The Final Empire', genre: 'Fantasy'},
-                {id: 3, name: 'The Long Earth', genre: 'Sci-Fi'}
-            ]
+        books: () => books,
+        book: (parent, args) => books.find(book => book.id == args.id),
+        authors: () => authors,
+        author: (parent, args) => authors.find(author => author.id == args.id)
+    },
+
+    Book: {
+        author: (parent, args) => authors.find(author => author.id == parent.authorId)
+    },
+
+    Author: {
+        books: (parent, args) => books.filter(book => book.authorId == parent.id)
     }
 }
 
