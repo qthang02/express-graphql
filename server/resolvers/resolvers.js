@@ -1,6 +1,7 @@
 const {books, authors} = require('../data/static');
 
 const resolver = {
+    // QUERY
     Query: {
         books: () => books,
         book: (parent, args) => books.find(book => book.id == args.id),
@@ -14,6 +15,12 @@ const resolver = {
 
     Author: {
         books: (parent, args) => books.filter(book => book.authorId == parent.id)
+    },
+
+    // MUTATION
+    Mutation: {
+        addAuthor: (parent, args) => args,
+        addBook: (parent, args) => args
     }
 }
 
